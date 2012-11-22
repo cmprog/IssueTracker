@@ -1,12 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IssueTracker" Class="IssueTrackerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=CALEB-PC;Initial Catalog=IssueTracker;Integrated Security=True" SettingsObjectName="IssueTracker.Data.Properties.Settings" SettingsPropertyName="IssueTrackerConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Application" Member="Applications">
-    <Type Name="Application">
+  <Table Name="dbo.Issue" Member="Issues">
+    <Type Name="Issue">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="Application_Issue" Member="Issues" ThisKey="Id" OtherKey="ApplicationId" Type="Issue" />
-      <Association Name="Application_Milestone" Member="Milestones" ThisKey="Id" OtherKey="ApplicationId" Type="Milestone" />
+      <Column Name="ProjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssignedUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OpenedByUserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MilestoneId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Body" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Issue_IssueLabel" Member="IssueLabels" ThisKey="Id" OtherKey="IssueId" Type="IssueLabel" />
+      <Association Name="User_Issue" Member="User" ThisKey="OpenedByUserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+      <Association Name="User_Issue1" Member="User1" ThisKey="AssignedUserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+      <Association Name="Milestone_Issue" Member="Milestone" ThisKey="MilestoneId" OtherKey="Id" Type="Milestone" IsForeignKey="true" />
+      <Association Name="Project_Issue" Member="Project" ThisKey="ProjectId" OtherKey="Id" Type="Project" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.[User]" Member="Users">
@@ -17,22 +24,6 @@
       <Column Name="Username" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
       <Association Name="User_Issue" Member="Issues" ThisKey="Id" OtherKey="OpenedByUserId" Type="Issue" />
       <Association Name="User_Issue1" Member="Issues1" ThisKey="Id" OtherKey="AssignedUserId" Type="Issue" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Issue" Member="Issues">
-    <Type Name="Issue">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="AssignedUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OpenedByUserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="MilestoneId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Title" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="Body" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="Issue_IssueLabel" Member="IssueLabels" ThisKey="Id" OtherKey="IssueId" Type="IssueLabel" />
-      <Association Name="Application_Issue" Member="Application" ThisKey="ApplicationId" OtherKey="Id" Type="Application" IsForeignKey="true" />
-      <Association Name="User_Issue" Member="User" ThisKey="OpenedByUserId" OtherKey="Id" Type="User" IsForeignKey="true" />
-      <Association Name="User_Issue1" Member="User1" ThisKey="AssignedUserId" OtherKey="Id" Type="User" IsForeignKey="true" />
-      <Association Name="Milestone_Issue" Member="Milestone" ThisKey="MilestoneId" OtherKey="Id" Type="Milestone" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.IssueLabel" Member="IssueLabels">
@@ -55,12 +46,21 @@
   <Table Name="dbo.Milestone" Member="Milestones">
     <Type Name="Milestone">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ApplicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProjectId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="DueDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Title" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Association Name="Milestone_Issue" Member="Issues" ThisKey="Id" OtherKey="MilestoneId" Type="Issue" />
-      <Association Name="Application_Milestone" Member="Application" ThisKey="ApplicationId" OtherKey="Id" Type="Application" IsForeignKey="true" />
+      <Association Name="Project_Milestone" Member="Project" ThisKey="ProjectId" OtherKey="Id" Type="Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project" Member="Projects">
+    <Type Name="Project">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Project_Issue" Member="Issues" ThisKey="Id" OtherKey="ProjectId" Type="Issue" />
+      <Association Name="Project_Milestone" Member="Milestones" ThisKey="Id" OtherKey="ProjectId" Type="Milestone" />
     </Type>
   </Table>
 </Database>

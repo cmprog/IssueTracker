@@ -20,6 +20,7 @@ namespace TccLib.Cocoa
         {
             if (rootViewController == null) throw new ArgumentNullException("rootViewController");
 
+            rootViewController.NavigationViewController = this;
             this.ViewControllers = new Stack<IViewController>();
             this.ViewControllers.Push(rootViewController);
 
@@ -51,7 +52,9 @@ namespace TccLib.Cocoa
         public void PushViewController(IViewController viewController)
         {
             if (viewController == null) throw new ArgumentNullException("viewController");
-            
+
+            viewController.NavigationViewController = this;
+
             this.HideViewController(this.TopViewController);
             this.ViewControllers.Push(viewController);
             this.ShowViewController(this.TopViewController);
