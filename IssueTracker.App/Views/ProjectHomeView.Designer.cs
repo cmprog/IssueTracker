@@ -28,145 +28,200 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabControl2.SuspendLayout();
+            this.mTabControlMain = new System.Windows.Forms.TabControl();
+            this.mTabPageIssues = new System.Windows.Forms.TabPage();
+            this.mTabControlIssues = new System.Windows.Forms.TabControl();
+            this.mTabPageOpenIssues = new System.Windows.Forms.TabPage();
+            this.mTabPageClosedIssues = new System.Windows.Forms.TabPage();
+            this.mButtonIssuesCreated = new System.Windows.Forms.Button();
+            this.mButtonIssuesAssigned = new System.Windows.Forms.Button();
+            this.mButtonIssuesEveryone = new System.Windows.Forms.Button();
+            this.mTabPageMilestones = new System.Windows.Forms.TabPage();
+            this.mButtonAdd = new System.Windows.Forms.Button();
+            this.mLabelSearch = new System.Windows.Forms.Label();
+            this.mTextBoxSearch = new System.Windows.Forms.TextBox();
+            this.mListBoxOpenIssues = new System.Windows.Forms.ListBox();
+            this.mTabControlMain.SuspendLayout();
+            this.mTabPageIssues.SuspendLayout();
+            this.mTabControlIssues.SuspendLayout();
+            this.mTabPageOpenIssues.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // mTabControlMain
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.ItemSize = new System.Drawing.Size(400, 40);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1151, 592);
-            this.tabControl1.TabIndex = 0;
+            this.mTabControlMain.Controls.Add(this.mTabPageIssues);
+            this.mTabControlMain.Controls.Add(this.mTabPageMilestones);
+            this.mTabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mTabControlMain.ItemSize = new System.Drawing.Size(400, 30);
+            this.mTabControlMain.Location = new System.Drawing.Point(0, 0);
+            this.mTabControlMain.Margin = new System.Windows.Forms.Padding(4);
+            this.mTabControlMain.Name = "mTabControlMain";
+            this.mTabControlMain.SelectedIndex = 0;
+            this.mTabControlMain.Size = new System.Drawing.Size(550, 220);
+            this.mTabControlMain.TabIndex = 0;
             // 
-            // tabPage1
+            // mTabPageIssues
             // 
-            this.tabPage1.Controls.Add(this.tabControl2);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 44);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage1.Size = new System.Drawing.Size(1143, 544);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Browse Issues";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.mTabPageIssues.Controls.Add(this.mTabControlIssues);
+            this.mTabPageIssues.Controls.Add(this.mButtonIssuesCreated);
+            this.mTabPageIssues.Controls.Add(this.mButtonIssuesAssigned);
+            this.mTabPageIssues.Controls.Add(this.mButtonIssuesEveryone);
+            this.mTabPageIssues.Location = new System.Drawing.Point(4, 34);
+            this.mTabPageIssues.Margin = new System.Windows.Forms.Padding(4);
+            this.mTabPageIssues.Name = "mTabPageIssues";
+            this.mTabPageIssues.Padding = new System.Windows.Forms.Padding(4);
+            this.mTabPageIssues.Size = new System.Drawing.Size(542, 182);
+            this.mTabPageIssues.TabIndex = 0;
+            this.mTabPageIssues.Text = "Browse Issues";
+            this.mTabPageIssues.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // mTabControlIssues
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 44);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage2.Size = new System.Drawing.Size(1143, 544);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Milestones";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(7, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 37);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Everyone\'s Issues";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(7, 50);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(170, 37);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Assigned to you";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(7, 93);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(170, 37);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Created by you";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.mTabControlIssues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl2.Controls.Add(this.tabPage3);
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Location = new System.Drawing.Point(183, 7);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(953, 530);
-            this.tabControl2.TabIndex = 3;
+            this.mTabControlIssues.Controls.Add(this.mTabPageOpenIssues);
+            this.mTabControlIssues.Controls.Add(this.mTabPageClosedIssues);
+            this.mTabControlIssues.Location = new System.Drawing.Point(183, 7);
+            this.mTabControlIssues.Name = "mTabControlIssues";
+            this.mTabControlIssues.SelectedIndex = 0;
+            this.mTabControlIssues.Size = new System.Drawing.Size(352, 168);
+            this.mTabControlIssues.TabIndex = 3;
             // 
-            // tabPage3
+            // mTabPageOpenIssues
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(945, 501);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "# open issue";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.mTabPageOpenIssues.Controls.Add(this.mListBoxOpenIssues);
+            this.mTabPageOpenIssues.Location = new System.Drawing.Point(4, 25);
+            this.mTabPageOpenIssues.Name = "mTabPageOpenIssues";
+            this.mTabPageOpenIssues.Padding = new System.Windows.Forms.Padding(3);
+            this.mTabPageOpenIssues.Size = new System.Drawing.Size(344, 139);
+            this.mTabPageOpenIssues.TabIndex = 0;
+            this.mTabPageOpenIssues.Text = "# open issue";
+            this.mTabPageOpenIssues.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // mTabPageClosedIssues
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(945, 501);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "# closed issues";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.mTabPageClosedIssues.Location = new System.Drawing.Point(4, 25);
+            this.mTabPageClosedIssues.Name = "mTabPageClosedIssues";
+            this.mTabPageClosedIssues.Padding = new System.Windows.Forms.Padding(3);
+            this.mTabPageClosedIssues.Size = new System.Drawing.Size(344, 139);
+            this.mTabPageClosedIssues.TabIndex = 1;
+            this.mTabPageClosedIssues.Text = "# closed issues";
+            this.mTabPageClosedIssues.UseVisualStyleBackColor = true;
+            // 
+            // mButtonIssuesCreated
+            // 
+            this.mButtonIssuesCreated.Location = new System.Drawing.Point(7, 93);
+            this.mButtonIssuesCreated.Name = "mButtonIssuesCreated";
+            this.mButtonIssuesCreated.Size = new System.Drawing.Size(170, 37);
+            this.mButtonIssuesCreated.TabIndex = 2;
+            this.mButtonIssuesCreated.Text = "Created by you";
+            this.mButtonIssuesCreated.UseVisualStyleBackColor = true;
+            // 
+            // mButtonIssuesAssigned
+            // 
+            this.mButtonIssuesAssigned.Location = new System.Drawing.Point(7, 50);
+            this.mButtonIssuesAssigned.Name = "mButtonIssuesAssigned";
+            this.mButtonIssuesAssigned.Size = new System.Drawing.Size(170, 37);
+            this.mButtonIssuesAssigned.TabIndex = 1;
+            this.mButtonIssuesAssigned.Text = "Assigned to you";
+            this.mButtonIssuesAssigned.UseVisualStyleBackColor = true;
+            // 
+            // mButtonIssuesEveryone
+            // 
+            this.mButtonIssuesEveryone.Location = new System.Drawing.Point(7, 7);
+            this.mButtonIssuesEveryone.Name = "mButtonIssuesEveryone";
+            this.mButtonIssuesEveryone.Size = new System.Drawing.Size(170, 37);
+            this.mButtonIssuesEveryone.TabIndex = 0;
+            this.mButtonIssuesEveryone.Text = "Everyone\'s Issues";
+            this.mButtonIssuesEveryone.UseVisualStyleBackColor = true;
+            // 
+            // mTabPageMilestones
+            // 
+            this.mTabPageMilestones.Location = new System.Drawing.Point(4, 34);
+            this.mTabPageMilestones.Margin = new System.Windows.Forms.Padding(4);
+            this.mTabPageMilestones.Name = "mTabPageMilestones";
+            this.mTabPageMilestones.Padding = new System.Windows.Forms.Padding(4);
+            this.mTabPageMilestones.Size = new System.Drawing.Size(542, 182);
+            this.mTabPageMilestones.TabIndex = 1;
+            this.mTabPageMilestones.Text = "Milestones";
+            this.mTabPageMilestones.UseVisualStyleBackColor = true;
+            // 
+            // mButtonAdd
+            // 
+            this.mButtonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButtonAdd.Location = new System.Drawing.Point(438, 3);
+            this.mButtonAdd.Name = "mButtonAdd";
+            this.mButtonAdd.Size = new System.Drawing.Size(109, 23);
+            this.mButtonAdd.TabIndex = 4;
+            this.mButtonAdd.Text = "New Milestone";
+            this.mButtonAdd.UseVisualStyleBackColor = true;
+            // 
+            // mLabelSearch
+            // 
+            this.mLabelSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mLabelSearch.AutoSize = true;
+            this.mLabelSearch.Location = new System.Drawing.Point(220, 6);
+            this.mLabelSearch.Name = "mLabelSearch";
+            this.mLabelSearch.Size = new System.Drawing.Size(51, 16);
+            this.mLabelSearch.TabIndex = 5;
+            this.mLabelSearch.Text = "Search";
+            // 
+            // mTextBoxSearch
+            // 
+            this.mTextBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mTextBoxSearch.Location = new System.Drawing.Point(277, 3);
+            this.mTextBoxSearch.Name = "mTextBoxSearch";
+            this.mTextBoxSearch.Size = new System.Drawing.Size(155, 22);
+            this.mTextBoxSearch.TabIndex = 6;
+            // 
+            // mListBoxOpenIssues
+            // 
+            this.mListBoxOpenIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mListBoxOpenIssues.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.mListBoxOpenIssues.FormattingEnabled = true;
+            this.mListBoxOpenIssues.Location = new System.Drawing.Point(3, 3);
+            this.mListBoxOpenIssues.Name = "mListBoxOpenIssues";
+            this.mListBoxOpenIssues.Size = new System.Drawing.Size(338, 133);
+            this.mListBoxOpenIssues.TabIndex = 0;
+            this.mListBoxOpenIssues.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxIssues_DrawItem);
             // 
             // ProjectHomeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.mTextBoxSearch);
+            this.Controls.Add(this.mLabelSearch);
+            this.Controls.Add(this.mButtonAdd);
+            this.Controls.Add(this.mTabControlMain);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(550, 220);
             this.Name = "ProjectHomeView";
-            this.Size = new System.Drawing.Size(1151, 592);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabControl2.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(550, 220);
+            this.mTabControlMain.ResumeLayout(false);
+            this.mTabPageIssues.ResumeLayout(false);
+            this.mTabControlIssues.ResumeLayout(false);
+            this.mTabPageOpenIssues.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TabControl tabControl2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabControl mTabControlMain;
+        private System.Windows.Forms.TabPage mTabPageIssues;
+        private System.Windows.Forms.TabPage mTabPageMilestones;
+        private System.Windows.Forms.Button mButtonIssuesCreated;
+        private System.Windows.Forms.Button mButtonIssuesAssigned;
+        private System.Windows.Forms.Button mButtonIssuesEveryone;
+        private System.Windows.Forms.TabControl mTabControlIssues;
+        private System.Windows.Forms.TabPage mTabPageOpenIssues;
+        private System.Windows.Forms.TabPage mTabPageClosedIssues;
+        private System.Windows.Forms.Button mButtonAdd;
+        private System.Windows.Forms.Label mLabelSearch;
+        private System.Windows.Forms.TextBox mTextBoxSearch;
+        private System.Windows.Forms.ListBox mListBoxOpenIssues;
     }
 }

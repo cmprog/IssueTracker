@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using IssueTracker.App.ViewControllers;
 using TccLib.WinForms;
+using TccLib.WinForms.Extensions;
 using TccLib.Cocoa;
 using IssueTracker.Data;
 
@@ -18,6 +19,7 @@ namespace IssueTracker.App
         public MainForm()
         {
             InitializeComponent();
+            this.mListBoxProjects.ToggleDoubleBuffering(true);
         }
 
         /// <summary>

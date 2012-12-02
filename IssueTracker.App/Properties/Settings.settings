@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="IssueTracker.App.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MarkdownStyleHeader" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">&lt;html&gt;&lt;head&gt;&lt;style&gt;</Value>
+    </Setting>
+    <Setting Name="MarkdownBodyHeader" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">&lt;/style&gt;&lt;/head&gt;&lt;body&gt;</Value>
+    </Setting>
+    <Setting Name="MarkdownBodyFooter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">&lt;/body&gt;&lt;/html&gt;</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

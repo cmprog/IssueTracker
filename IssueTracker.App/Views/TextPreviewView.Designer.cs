@@ -30,9 +30,9 @@
         {
             this.mTabControl = new System.Windows.Forms.TabControl();
             this.mTabPageWrite = new System.Windows.Forms.TabPage();
-            this.mTabPagePreview = new System.Windows.Forms.TabPage();
-            this.mWebBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.mTextBoxUserInput = new System.Windows.Forms.TextBox();
+            this.mTabPagePreview = new System.Windows.Forms.TabPage();
+            this.mHtmlPanel = new System.Windows.Forms.HtmlPanel();
             this.mTabControl.SuspendLayout();
             this.mTabPageWrite.SuspendLayout();
             this.mTabPagePreview.SuspendLayout();
@@ -62,26 +62,6 @@
             this.mTabPageWrite.Text = "Write";
             this.mTabPageWrite.UseVisualStyleBackColor = true;
             // 
-            // mTabPagePreview
-            // 
-            this.mTabPagePreview.Controls.Add(this.mWebBrowserPreview);
-            this.mTabPagePreview.Location = new System.Drawing.Point(4, 25);
-            this.mTabPagePreview.Name = "mTabPagePreview";
-            this.mTabPagePreview.Padding = new System.Windows.Forms.Padding(3);
-            this.mTabPagePreview.Size = new System.Drawing.Size(392, 179);
-            this.mTabPagePreview.TabIndex = 1;
-            this.mTabPagePreview.Text = "Preview";
-            this.mTabPagePreview.UseVisualStyleBackColor = true;
-            // 
-            // mWebBrowserPreview
-            // 
-            this.mWebBrowserPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mWebBrowserPreview.Location = new System.Drawing.Point(3, 3);
-            this.mWebBrowserPreview.MinimumSize = new System.Drawing.Size(20, 20);
-            this.mWebBrowserPreview.Name = "mWebBrowserPreview";
-            this.mWebBrowserPreview.Size = new System.Drawing.Size(386, 173);
-            this.mWebBrowserPreview.TabIndex = 0;
-            // 
             // mTextBoxUserInput
             // 
             this.mTextBoxUserInput.AcceptsReturn = true;
@@ -92,6 +72,29 @@
             this.mTextBoxUserInput.Name = "mTextBoxUserInput";
             this.mTextBoxUserInput.Size = new System.Drawing.Size(386, 173);
             this.mTextBoxUserInput.TabIndex = 0;
+            // 
+            // mTabPagePreview
+            // 
+            this.mTabPagePreview.Controls.Add(this.mHtmlPanel);
+            this.mTabPagePreview.Location = new System.Drawing.Point(4, 25);
+            this.mTabPagePreview.Name = "mTabPagePreview";
+            this.mTabPagePreview.Padding = new System.Windows.Forms.Padding(3);
+            this.mTabPagePreview.Size = new System.Drawing.Size(392, 179);
+            this.mTabPagePreview.TabIndex = 1;
+            this.mTabPagePreview.Text = "Preview";
+            this.mTabPagePreview.UseVisualStyleBackColor = true;
+            // 
+            // mHtmlPanel
+            // 
+            this.mHtmlPanel.AutoScroll = true;
+            this.mHtmlPanel.AutoScrollMinSize = new System.Drawing.Size(386, 18);
+            this.mHtmlPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.mHtmlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mHtmlPanel.Location = new System.Drawing.Point(3, 3);
+            this.mHtmlPanel.Name = "mHtmlPanel";
+            this.mHtmlPanel.Size = new System.Drawing.Size(386, 173);
+            this.mHtmlPanel.TabIndex = 0;
+            this.mHtmlPanel.Text = "htmlPanel1";
             // 
             // TextPreviewView
             // 
@@ -114,6 +117,6 @@
         private System.Windows.Forms.TabPage mTabPageWrite;
         private System.Windows.Forms.TabPage mTabPagePreview;
         private System.Windows.Forms.TextBox mTextBoxUserInput;
-        private System.Windows.Forms.WebBrowser mWebBrowserPreview;
+        private System.Windows.Forms.HtmlPanel mHtmlPanel;
     }
 }

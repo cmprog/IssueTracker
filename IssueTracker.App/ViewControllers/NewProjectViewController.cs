@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,7 +43,13 @@ namespace IssueTracker.App.ViewControllers
         private void View_ProcessText(object sender, TextPreviewProcessTextEventArgs e)
         {
             var lMarkdown = new MarkdownSharp.Markdown();
-            e.ProcessedText = lMarkdown.Transform(e.Text);
+
+            var lStyle = Properties.Resources.PreviewStyleSheet;
+            var lHeader = Properties.Settings.Default.MarkdownStyleHeader + lStyle + Properties.Settings.Default.MarkdownBodyHeader;
+            var lBody = lMarkdown.Transform(e.Text);
+            var lFooter = Properties.Settings.Default.MarkdownBodyFooter;
+
+            e.ProcessedText = lHeader + lBody + lFooter;
         }
 
         /// <summary>

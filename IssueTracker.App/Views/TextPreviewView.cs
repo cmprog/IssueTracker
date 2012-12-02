@@ -49,7 +49,7 @@ namespace IssueTracker.App.Views
             {
                 var lEventArgs = new TextPreviewProcessTextEventArgs(this.mTextBoxUserInput.Text);
                 this.ProcessText.Fire(this, lEventArgs);
-                this.mWebBrowserPreview.DocumentText = lEventArgs.ProcessedText;
+                this.mHtmlPanel.Text = lEventArgs.ProcessedText;
             }
         }
     }
