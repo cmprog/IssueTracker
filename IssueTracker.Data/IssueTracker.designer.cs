@@ -30,6 +30,9 @@ namespace IssueTracker.Data
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertIssue(Issue instance);
+    partial void UpdateIssue(Issue instance);
+    partial void DeleteIssue(Issue instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
@@ -45,13 +48,13 @@ namespace IssueTracker.Data
     partial void InsertProject(Project instance);
     partial void UpdateProject(Project instance);
     partial void DeleteProject(Project instance);
-    partial void InsertIssue(Issue instance);
-    partial void UpdateIssue(Issue instance);
-    partial void DeleteIssue(Issue instance);
+    partial void InsertProjectUser(ProjectUser instance);
+    partial void UpdateProjectUser(ProjectUser instance);
+    partial void DeleteProjectUser(ProjectUser instance);
     #endregion
 		
 		public IssueTrackerDataContext() : 
-				base(global::IssueTracker.Data.Properties.Settings.Default.IssueTrackerConnectionString, mappingSource)
+				base(global::IssueTracker.Data.Properties.Settings.Default.IssueTrackerConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -78,6 +81,14 @@ namespace IssueTracker.Data
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<Issue> Issues
+		{
+			get
+			{
+				return this.GetTable<Issue>();
+			}
 		}
 		
 		public System.Data.Linq.Table<User> Users
@@ -120,12 +131,482 @@ namespace IssueTracker.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<Issue> Issues
+		public System.Data.Linq.Table<ProjectUser> ProjectUsers
 		{
 			get
 			{
-				return this.GetTable<Issue>();
+				return this.GetTable<ProjectUser>();
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Issue")]
+	public partial class Issue : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _ProjectId;
+		
+		private System.Nullable<int> _AssignedUserId;
+		
+		private int _OpenedByUserId;
+		
+		private System.Nullable<int> _MilestoneId;
+		
+		private bool _IsOpen;
+		
+		private System.DateTime _CreationDateTime;
+		
+		private System.DateTime _LastUpdatedDateTime;
+		
+		private string _Title;
+		
+		private string _Body;
+		
+		private EntitySet<IssueLabel> _IssueLabels;
+		
+		private EntityRef<User> _User;
+		
+		private EntityRef<User> _User1;
+		
+		private EntityRef<Milestone> _Milestone;
+		
+		private EntityRef<Project> _Project;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnProjectIdChanging(int value);
+    partial void OnProjectIdChanged();
+    partial void OnAssignedUserIdChanging(System.Nullable<int> value);
+    partial void OnAssignedUserIdChanged();
+    partial void OnOpenedByUserIdChanging(int value);
+    partial void OnOpenedByUserIdChanged();
+    partial void OnMilestoneIdChanging(System.Nullable<int> value);
+    partial void OnMilestoneIdChanged();
+    partial void OnIsOpenChanging(bool value);
+    partial void OnIsOpenChanged();
+    partial void OnCreationDateTimeChanging(System.DateTime value);
+    partial void OnCreationDateTimeChanged();
+    partial void OnLastUpdatedDateTimeChanging(System.DateTime value);
+    partial void OnLastUpdatedDateTimeChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnBodyChanging(string value);
+    partial void OnBodyChanged();
+    #endregion
+		
+		public Issue()
+		{
+			this._IssueLabels = new EntitySet<IssueLabel>(new Action<IssueLabel>(this.attach_IssueLabels), new Action<IssueLabel>(this.detach_IssueLabels));
+			this._User = default(EntityRef<User>);
+			this._User1 = default(EntityRef<User>);
+			this._Milestone = default(EntityRef<Milestone>);
+			this._Project = default(EntityRef<Project>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="Int NOT NULL")]
+		public int ProjectId
+		{
+			get
+			{
+				return this._ProjectId;
+			}
+			set
+			{
+				if ((this._ProjectId != value))
+				{
+					if (this._Project.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProjectIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProjectId = value;
+					this.SendPropertyChanged("ProjectId");
+					this.OnProjectIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedUserId", DbType="Int")]
+		public System.Nullable<int> AssignedUserId
+		{
+			get
+			{
+				return this._AssignedUserId;
+			}
+			set
+			{
+				if ((this._AssignedUserId != value))
+				{
+					if (this._User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAssignedUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._AssignedUserId = value;
+					this.SendPropertyChanged("AssignedUserId");
+					this.OnAssignedUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenedByUserId", DbType="Int NOT NULL")]
+		public int OpenedByUserId
+		{
+			get
+			{
+				return this._OpenedByUserId;
+			}
+			set
+			{
+				if ((this._OpenedByUserId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOpenedByUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._OpenedByUserId = value;
+					this.SendPropertyChanged("OpenedByUserId");
+					this.OnOpenedByUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MilestoneId", DbType="Int")]
+		public System.Nullable<int> MilestoneId
+		{
+			get
+			{
+				return this._MilestoneId;
+			}
+			set
+			{
+				if ((this._MilestoneId != value))
+				{
+					if (this._Milestone.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMilestoneIdChanging(value);
+					this.SendPropertyChanging();
+					this._MilestoneId = value;
+					this.SendPropertyChanged("MilestoneId");
+					this.OnMilestoneIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsOpen", DbType="Bit NOT NULL")]
+		public bool IsOpen
+		{
+			get
+			{
+				return this._IsOpen;
+			}
+			set
+			{
+				if ((this._IsOpen != value))
+				{
+					this.OnIsOpenChanging(value);
+					this.SendPropertyChanging();
+					this._IsOpen = value;
+					this.SendPropertyChanged("IsOpen");
+					this.OnIsOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreationDateTime", DbType="DateTime NOT NULL")]
+		public System.DateTime CreationDateTime
+		{
+			get
+			{
+				return this._CreationDateTime;
+			}
+			set
+			{
+				if ((this._CreationDateTime != value))
+				{
+					this.OnCreationDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._CreationDateTime = value;
+					this.SendPropertyChanged("CreationDateTime");
+					this.OnCreationDateTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastUpdatedDateTime", DbType="DateTime NOT NULL")]
+		public System.DateTime LastUpdatedDateTime
+		{
+			get
+			{
+				return this._LastUpdatedDateTime;
+			}
+			set
+			{
+				if ((this._LastUpdatedDateTime != value))
+				{
+					this.OnLastUpdatedDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._LastUpdatedDateTime = value;
+					this.SendPropertyChanged("LastUpdatedDateTime");
+					this.OnLastUpdatedDateTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="VarChar(256) NOT NULL", CanBeNull=false)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Body", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string Body
+		{
+			get
+			{
+				return this._Body;
+			}
+			set
+			{
+				if ((this._Body != value))
+				{
+					this.OnBodyChanging(value);
+					this.SendPropertyChanging();
+					this._Body = value;
+					this.SendPropertyChanged("Body");
+					this.OnBodyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Issue_IssueLabel", Storage="_IssueLabels", ThisKey="Id", OtherKey="IssueId")]
+		public EntitySet<IssueLabel> IssueLabels
+		{
+			get
+			{
+				return this._IssueLabels;
+			}
+			set
+			{
+				this._IssueLabels.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Issue", Storage="_User", ThisKey="OpenedByUserId", OtherKey="Id", IsForeignKey=true)]
+		public User OpenedByUser
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.OpenedIssues.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.OpenedIssues.Add(this);
+						this._OpenedByUserId = value.Id;
+					}
+					else
+					{
+						this._OpenedByUserId = default(int);
+					}
+					this.SendPropertyChanged("OpenedByUser");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Issue1", Storage="_User1", ThisKey="AssignedUserId", OtherKey="Id", IsForeignKey=true)]
+		public User AssignedUser
+		{
+			get
+			{
+				return this._User1.Entity;
+			}
+			set
+			{
+				User previousValue = this._User1.Entity;
+				if (((previousValue != value) 
+							|| (this._User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User1.Entity = null;
+						previousValue.AssignedIssues.Remove(this);
+					}
+					this._User1.Entity = value;
+					if ((value != null))
+					{
+						value.AssignedIssues.Add(this);
+						this._AssignedUserId = value.Id;
+					}
+					else
+					{
+						this._AssignedUserId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("AssignedUser");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Milestone_Issue", Storage="_Milestone", ThisKey="MilestoneId", OtherKey="Id", IsForeignKey=true)]
+		public Milestone Milestone
+		{
+			get
+			{
+				return this._Milestone.Entity;
+			}
+			set
+			{
+				Milestone previousValue = this._Milestone.Entity;
+				if (((previousValue != value) 
+							|| (this._Milestone.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Milestone.Entity = null;
+						previousValue.Issues.Remove(this);
+					}
+					this._Milestone.Entity = value;
+					if ((value != null))
+					{
+						value.Issues.Add(this);
+						this._MilestoneId = value.Id;
+					}
+					else
+					{
+						this._MilestoneId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Milestone");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_Issue", Storage="_Project", ThisKey="ProjectId", OtherKey="Id", IsForeignKey=true)]
+		public Project Project
+		{
+			get
+			{
+				return this._Project.Entity;
+			}
+			set
+			{
+				Project previousValue = this._Project.Entity;
+				if (((previousValue != value) 
+							|| (this._Project.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Project.Entity = null;
+						previousValue.Issues.Remove(this);
+					}
+					this._Project.Entity = value;
+					if ((value != null))
+					{
+						value.Issues.Add(this);
+						this._ProjectId = value.Id;
+					}
+					else
+					{
+						this._ProjectId = default(int);
+					}
+					this.SendPropertyChanged("Project");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_IssueLabels(IssueLabel entity)
+		{
+			this.SendPropertyChanging();
+			entity.Issue = this;
+		}
+		
+		private void detach_IssueLabels(IssueLabel entity)
+		{
+			this.SendPropertyChanging();
+			entity.Issue = null;
 		}
 	}
 	
@@ -147,6 +628,8 @@ namespace IssueTracker.Data
 		
 		private EntitySet<Issue> _Issues1;
 		
+		private EntitySet<ProjectUser> _ProjectUsers;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -165,6 +648,7 @@ namespace IssueTracker.Data
 		{
 			this._Issues = new EntitySet<Issue>(new Action<Issue>(this.attach_Issues), new Action<Issue>(this.detach_Issues));
 			this._Issues1 = new EntitySet<Issue>(new Action<Issue>(this.attach_Issues1), new Action<Issue>(this.detach_Issues1));
+			this._ProjectUsers = new EntitySet<ProjectUser>(new Action<ProjectUser>(this.attach_ProjectUsers), new Action<ProjectUser>(this.detach_ProjectUsers));
 			OnCreated();
 		}
 		
@@ -274,6 +758,19 @@ namespace IssueTracker.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ProjectUser", Storage="_ProjectUsers", ThisKey="Id", OtherKey="UserId")]
+		public EntitySet<ProjectUser> ProjectUsers
+		{
+			get
+			{
+				return this._ProjectUsers;
+			}
+			set
+			{
+				this._ProjectUsers.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -317,6 +814,18 @@ namespace IssueTracker.Data
 			this.SendPropertyChanging();
 			entity.AssignedUser = null;
 		}
+		
+		private void attach_ProjectUsers(ProjectUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_ProjectUsers(ProjectUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.IssueLabel")]
@@ -329,9 +838,9 @@ namespace IssueTracker.Data
 		
 		private int _LabelId;
 		
-		private EntityRef<Label> _Label;
-		
 		private EntityRef<Issue> _Issue;
+		
+		private EntityRef<Label> _Label;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -345,8 +854,8 @@ namespace IssueTracker.Data
 		
 		public IssueLabel()
 		{
-			this._Label = default(EntityRef<Label>);
 			this._Issue = default(EntityRef<Issue>);
+			this._Label = default(EntityRef<Label>);
 			OnCreated();
 		}
 		
@@ -398,40 +907,6 @@ namespace IssueTracker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Label_IssueLabel", Storage="_Label", ThisKey="LabelId", OtherKey="Id", IsForeignKey=true)]
-		public Label Label
-		{
-			get
-			{
-				return this._Label.Entity;
-			}
-			set
-			{
-				Label previousValue = this._Label.Entity;
-				if (((previousValue != value) 
-							|| (this._Label.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Label.Entity = null;
-						previousValue.IssueLabels.Remove(this);
-					}
-					this._Label.Entity = value;
-					if ((value != null))
-					{
-						value.IssueLabels.Add(this);
-						this._LabelId = value.Id;
-					}
-					else
-					{
-						this._LabelId = default(int);
-					}
-					this.SendPropertyChanged("Label");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Issue_IssueLabel", Storage="_Issue", ThisKey="IssueId", OtherKey="Id", IsForeignKey=true)]
 		public Issue Issue
 		{
@@ -462,6 +937,40 @@ namespace IssueTracker.Data
 						this._IssueId = default(int);
 					}
 					this.SendPropertyChanged("Issue");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Label_IssueLabel", Storage="_Label", ThisKey="LabelId", OtherKey="Id", IsForeignKey=true)]
+		public Label Label
+		{
+			get
+			{
+				return this._Label.Entity;
+			}
+			set
+			{
+				Label previousValue = this._Label.Entity;
+				if (((previousValue != value) 
+							|| (this._Label.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Label.Entity = null;
+						previousValue.IssueLabels.Remove(this);
+					}
+					this._Label.Entity = value;
+					if ((value != null))
+					{
+						value.IssueLabels.Add(this);
+						this._LabelId = value.Id;
+					}
+					else
+					{
+						this._LabelId = default(int);
+					}
+					this.SendPropertyChanged("Label");
 				}
 			}
 		}
@@ -659,7 +1168,7 @@ namespace IssueTracker.Data
 		
 		private int _ProjectId;
 		
-		private System.Nullable<System.DateTime> _DueDate;
+		private System.DateTime _DueDate;
 		
 		private string _Title;
 		
@@ -677,7 +1186,7 @@ namespace IssueTracker.Data
     partial void OnIdChanged();
     partial void OnProjectIdChanging(int value);
     partial void OnProjectIdChanged();
-    partial void OnDueDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDueDateChanging(System.DateTime value);
     partial void OnDueDateChanged();
     partial void OnTitleChanging(string value);
     partial void OnTitleChanged();
@@ -736,8 +1245,8 @@ namespace IssueTracker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DueDate", DbType="Date")]
-		public System.Nullable<System.DateTime> DueDate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DueDate", DbType="Date NOT NULL")]
+		public System.DateTime DueDate
 		{
 			get
 			{
@@ -884,13 +1393,17 @@ namespace IssueTracker.Data
 		
 		private int _Id;
 		
+		private System.DateTime _CreationDateTIme;
+		
 		private string _Name;
 		
 		private string _Description;
 		
+		private EntitySet<Issue> _Issues;
+		
 		private EntitySet<Milestone> _Milestones;
 		
-		private EntitySet<Issue> _Issues;
+		private EntitySet<ProjectUser> _ProjectUsers;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -898,6 +1411,8 @@ namespace IssueTracker.Data
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
+    partial void OnCreationDateTImeChanging(System.DateTime value);
+    partial void OnCreationDateTImeChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
     partial void OnDescriptionChanging(string value);
@@ -906,8 +1421,9 @@ namespace IssueTracker.Data
 		
 		public Project()
 		{
-			this._Milestones = new EntitySet<Milestone>(new Action<Milestone>(this.attach_Milestones), new Action<Milestone>(this.detach_Milestones));
 			this._Issues = new EntitySet<Issue>(new Action<Issue>(this.attach_Issues), new Action<Issue>(this.detach_Issues));
+			this._Milestones = new EntitySet<Milestone>(new Action<Milestone>(this.attach_Milestones), new Action<Milestone>(this.detach_Milestones));
+			this._ProjectUsers = new EntitySet<ProjectUser>(new Action<ProjectUser>(this.attach_ProjectUsers), new Action<ProjectUser>(this.detach_ProjectUsers));
 			OnCreated();
 		}
 		
@@ -931,7 +1447,27 @@ namespace IssueTracker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(128) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreationDateTIme", DbType="DateTime NOT NULL")]
+		public System.DateTime CreationDateTIme
+		{
+			get
+			{
+				return this._CreationDateTIme;
+			}
+			set
+			{
+				if ((this._CreationDateTIme != value))
+				{
+					this.OnCreationDateTImeChanging(value);
+					this.SendPropertyChanging();
+					this._CreationDateTIme = value;
+					this.SendPropertyChanged("CreationDateTIme");
+					this.OnCreationDateTImeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(256) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -971,6 +1507,19 @@ namespace IssueTracker.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_Issue", Storage="_Issues", ThisKey="Id", OtherKey="ProjectId")]
+		public EntitySet<Issue> Issues
+		{
+			get
+			{
+				return this._Issues;
+			}
+			set
+			{
+				this._Issues.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_Milestone", Storage="_Milestones", ThisKey="Id", OtherKey="ProjectId")]
 		public EntitySet<Milestone> Milestones
 		{
@@ -984,16 +1533,16 @@ namespace IssueTracker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_Issue", Storage="_Issues", ThisKey="Id", OtherKey="ProjectId")]
-		public EntitySet<Issue> Issues
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectUser", Storage="_ProjectUsers", ThisKey="Id", OtherKey="ProjectId")]
+		public EntitySet<ProjectUser> ProjectUsers
 		{
 			get
 			{
-				return this._Issues;
+				return this._ProjectUsers;
 			}
 			set
 			{
-				this._Issues.Assign(value);
+				this._ProjectUsers.Assign(value);
 			}
 		}
 		
@@ -1017,6 +1566,18 @@ namespace IssueTracker.Data
 			}
 		}
 		
+		private void attach_Issues(Issue entity)
+		{
+			this.SendPropertyChanging();
+			entity.Project = this;
+		}
+		
+		private void detach_Issues(Issue entity)
+		{
+			this.SendPropertyChanging();
+			entity.Project = null;
+		}
+		
 		private void attach_Milestones(Milestone entity)
 		{
 			this.SendPropertyChanging();
@@ -1029,112 +1590,75 @@ namespace IssueTracker.Data
 			entity.Project = null;
 		}
 		
-		private void attach_Issues(Issue entity)
+		private void attach_ProjectUsers(ProjectUser entity)
 		{
 			this.SendPropertyChanging();
 			entity.Project = this;
 		}
 		
-		private void detach_Issues(Issue entity)
+		private void detach_ProjectUsers(ProjectUser entity)
 		{
 			this.SendPropertyChanging();
 			entity.Project = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Issue")]
-	public partial class Issue : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProjectUser")]
+	public partial class ProjectUser : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
+		private int _UserId;
 		
 		private int _ProjectId;
-		
-		private System.Nullable<int> _AssignedUserId;
-		
-		private int _OpenedByUserId;
-		
-		private System.Nullable<int> _MilestoneId;
-		
-		private string _Title;
-		
-		private string _Body;
-		
-		private bool _IsOpen;
-		
-		private System.DateTime _CreationDate;
-		
-		private System.DateTime _LastUpdatedDate;
-		
-		private EntitySet<IssueLabel> _IssueLabels;
-		
-		private EntityRef<Milestone> _Milestone;
 		
 		private EntityRef<Project> _Project;
 		
 		private EntityRef<User> _User;
 		
-		private EntityRef<User> _User1;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
     partial void OnProjectIdChanging(int value);
     partial void OnProjectIdChanged();
-    partial void OnAssignedUserIdChanging(System.Nullable<int> value);
-    partial void OnAssignedUserIdChanged();
-    partial void OnOpenedByUserIdChanging(int value);
-    partial void OnOpenedByUserIdChanged();
-    partial void OnMilestoneIdChanging(System.Nullable<int> value);
-    partial void OnMilestoneIdChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnBodyChanging(string value);
-    partial void OnBodyChanged();
-    partial void OnIsOpenChanging(bool value);
-    partial void OnIsOpenChanged();
-    partial void OnCreationDateChanging(System.DateTime value);
-    partial void OnCreationDateChanged();
-    partial void OnLastUpdatedDateChanging(System.DateTime value);
-    partial void OnLastUpdatedDateChanged();
     #endregion
 		
-		public Issue()
+		public ProjectUser()
 		{
-			this._IssueLabels = new EntitySet<IssueLabel>(new Action<IssueLabel>(this.attach_IssueLabels), new Action<IssueLabel>(this.detach_IssueLabels));
-			this._Milestone = default(EntityRef<Milestone>);
 			this._Project = default(EntityRef<Project>);
 			this._User = default(EntityRef<User>);
-			this._User1 = default(EntityRef<User>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UserId
 		{
 			get
 			{
-				return this._Id;
+				return this._UserId;
 			}
 			set
 			{
-				if ((this._Id != value))
+				if ((this._UserId != value))
 				{
-					this.OnIdChanging(value);
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
 					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectId", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int ProjectId
 		{
 			get
@@ -1158,226 +1682,7 @@ namespace IssueTracker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedUserId", DbType="Int")]
-		public System.Nullable<int> AssignedUserId
-		{
-			get
-			{
-				return this._AssignedUserId;
-			}
-			set
-			{
-				if ((this._AssignedUserId != value))
-				{
-					if (this._User1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAssignedUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._AssignedUserId = value;
-					this.SendPropertyChanged("AssignedUserId");
-					this.OnAssignedUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenedByUserId", DbType="Int NOT NULL")]
-		public int OpenedByUserId
-		{
-			get
-			{
-				return this._OpenedByUserId;
-			}
-			set
-			{
-				if ((this._OpenedByUserId != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOpenedByUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._OpenedByUserId = value;
-					this.SendPropertyChanged("OpenedByUserId");
-					this.OnOpenedByUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MilestoneId", DbType="Int")]
-		public System.Nullable<int> MilestoneId
-		{
-			get
-			{
-				return this._MilestoneId;
-			}
-			set
-			{
-				if ((this._MilestoneId != value))
-				{
-					if (this._Milestone.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMilestoneIdChanging(value);
-					this.SendPropertyChanging();
-					this._MilestoneId = value;
-					this.SendPropertyChanged("MilestoneId");
-					this.OnMilestoneIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="VarChar(256) NOT NULL", CanBeNull=false)]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Body", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string Body
-		{
-			get
-			{
-				return this._Body;
-			}
-			set
-			{
-				if ((this._Body != value))
-				{
-					this.OnBodyChanging(value);
-					this.SendPropertyChanging();
-					this._Body = value;
-					this.SendPropertyChanged("Body");
-					this.OnBodyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsOpen", DbType="Bit NOT NULL")]
-		public bool IsOpen
-		{
-			get
-			{
-				return this._IsOpen;
-			}
-			set
-			{
-				if ((this._IsOpen != value))
-				{
-					this.OnIsOpenChanging(value);
-					this.SendPropertyChanging();
-					this._IsOpen = value;
-					this.SendPropertyChanged("IsOpen");
-					this.OnIsOpenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreationDate", DbType="DateTime NOT NULL", IsDbGenerated=true)]
-		public System.DateTime CreationDate
-		{
-			get
-			{
-				return this._CreationDate;
-			}
-			set
-			{
-				if ((this._CreationDate != value))
-				{
-					this.OnCreationDateChanging(value);
-					this.SendPropertyChanging();
-					this._CreationDate = value;
-					this.SendPropertyChanged("CreationDate");
-					this.OnCreationDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastUpdatedDate", DbType="DateTime NOT NULL", IsDbGenerated=true)]
-		public System.DateTime LastUpdatedDate
-		{
-			get
-			{
-				return this._LastUpdatedDate;
-			}
-			set
-			{
-				if ((this._LastUpdatedDate != value))
-				{
-					this.OnLastUpdatedDateChanging(value);
-					this.SendPropertyChanging();
-					this._LastUpdatedDate = value;
-					this.SendPropertyChanged("LastUpdatedDate");
-					this.OnLastUpdatedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Issue_IssueLabel", Storage="_IssueLabels", ThisKey="Id", OtherKey="IssueId")]
-		public EntitySet<IssueLabel> IssueLabels
-		{
-			get
-			{
-				return this._IssueLabels;
-			}
-			set
-			{
-				this._IssueLabels.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Milestone_Issue", Storage="_Milestone", ThisKey="MilestoneId", OtherKey="Id", IsForeignKey=true)]
-		public Milestone Milestone
-		{
-			get
-			{
-				return this._Milestone.Entity;
-			}
-			set
-			{
-				Milestone previousValue = this._Milestone.Entity;
-				if (((previousValue != value) 
-							|| (this._Milestone.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Milestone.Entity = null;
-						previousValue.Issues.Remove(this);
-					}
-					this._Milestone.Entity = value;
-					if ((value != null))
-					{
-						value.Issues.Add(this);
-						this._MilestoneId = value.Id;
-					}
-					else
-					{
-						this._MilestoneId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Milestone");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_Issue", Storage="_Project", ThisKey="ProjectId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_ProjectUser", Storage="_Project", ThisKey="ProjectId", OtherKey="Id", IsForeignKey=true)]
 		public Project Project
 		{
 			get
@@ -1394,12 +1699,12 @@ namespace IssueTracker.Data
 					if ((previousValue != null))
 					{
 						this._Project.Entity = null;
-						previousValue.Issues.Remove(this);
+						previousValue.ProjectUsers.Remove(this);
 					}
 					this._Project.Entity = value;
 					if ((value != null))
 					{
-						value.Issues.Add(this);
+						value.ProjectUsers.Add(this);
 						this._ProjectId = value.Id;
 					}
 					else
@@ -1411,8 +1716,8 @@ namespace IssueTracker.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Issue", Storage="_User", ThisKey="OpenedByUserId", OtherKey="Id", IsForeignKey=true)]
-		public User OpenedByUser
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ProjectUser", Storage="_User", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
+		public User User
 		{
 			get
 			{
@@ -1428,53 +1733,19 @@ namespace IssueTracker.Data
 					if ((previousValue != null))
 					{
 						this._User.Entity = null;
-						previousValue.OpenedIssues.Remove(this);
+						previousValue.ProjectUsers.Remove(this);
 					}
 					this._User.Entity = value;
 					if ((value != null))
 					{
-						value.OpenedIssues.Add(this);
-						this._OpenedByUserId = value.Id;
+						value.ProjectUsers.Add(this);
+						this._UserId = value.Id;
 					}
 					else
 					{
-						this._OpenedByUserId = default(int);
+						this._UserId = default(int);
 					}
-					this.SendPropertyChanged("OpenedByUser");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Issue1", Storage="_User1", ThisKey="AssignedUserId", OtherKey="Id", IsForeignKey=true)]
-		public User AssignedUser
-		{
-			get
-			{
-				return this._User1.Entity;
-			}
-			set
-			{
-				User previousValue = this._User1.Entity;
-				if (((previousValue != value) 
-							|| (this._User1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User1.Entity = null;
-						previousValue.AssignedIssues.Remove(this);
-					}
-					this._User1.Entity = value;
-					if ((value != null))
-					{
-						value.AssignedIssues.Add(this);
-						this._AssignedUserId = value.Id;
-					}
-					else
-					{
-						this._AssignedUserId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("AssignedUser");
+					this.SendPropertyChanged("User");
 				}
 			}
 		}
@@ -1497,18 +1768,6 @@ namespace IssueTracker.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_IssueLabels(IssueLabel entity)
-		{
-			this.SendPropertyChanging();
-			entity.Issue = this;
-		}
-		
-		private void detach_IssueLabels(IssueLabel entity)
-		{
-			this.SendPropertyChanging();
-			entity.Issue = null;
 		}
 	}
 }

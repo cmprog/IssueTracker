@@ -2,89 +2,109 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 8.5" name="IssueTracker">
   <DataContextMoniker Name="/IssueTrackerDataContext" />
   <nestedChildShapes>
-    <classShape Id="5a73370e-eb83-47e6-afe6-b7d9f3b7d830" absoluteBounds="3.5, 0.75, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/IssueTrackerDataContext/User" />
-      <nestedChildShapes>
-        <elementListCompartment Id="14f45676-43e9-4423-8dcc-bca60ebff5f1" absoluteBounds="3.515, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="c40fe5f0-7ab5-48e9-b9c8-6b1bdc39f395" absoluteBounds="9, 4, 2, 1.193992513020834">
-      <DataClassMoniker Name="/IssueTrackerDataContext/IssueLabel" />
-      <nestedChildShapes>
-        <elementListCompartment Id="90ea4e62-0525-44d5-8d69-033579117f4d" absoluteBounds="9.015, 4.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="7a28f132-6f6c-490f-9896-7a93a922d556" absoluteBounds="6.25, 0.75, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/IssueTrackerDataContext/Label" />
-      <nestedChildShapes>
-        <elementListCompartment Id="4ea9c812-4e7f-40ef-9124-2f949ac11cb3" absoluteBounds="6.265, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="62e26cb6-3862-4196-8752-68b7627d4884" absoluteBounds="3.5, 3.625, 2, 1.7708968098958327">
-      <DataClassMoniker Name="/IssueTrackerDataContext/Milestone" />
-      <nestedChildShapes>
-        <elementListCompartment Id="d67afb31-92e5-4a77-8e7b-4bd6c3b35a61" absoluteBounds="3.515, 4.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="d99ba773-535d-4ea5-8ea4-8ebe6c5c9e92" absoluteBounds="0.75, 3.875, 2, 1.3862939453124996">
-      <DataClassMoniker Name="/IssueTrackerDataContext/Project" />
-      <nestedChildShapes>
-        <elementListCompartment Id="00dfd47f-1379-4a0b-92b7-6fd39c821d86" absoluteBounds="0.765, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(8.25 : 1.53929768880208); (10 : 1.53929768880208); (10 : 4)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/IssueTrackerDataContext/Label/Label_IssueLabel" />
-      <nodes>
-        <classShapeMoniker Id="7a28f132-6f6c-490f-9896-7a93a922d556" />
-        <classShapeMoniker Id="c40fe5f0-7ab5-48e9-b9c8-6b1bdc39f395" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.56814697265625); (3.5 : 4.56814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/IssueTrackerDataContext/Project/Project_Milestone" />
-      <nodes>
-        <classShapeMoniker Id="d99ba773-535d-4ea5-8ea4-8ebe6c5c9e92" />
-        <classShapeMoniker Id="62e26cb6-3862-4196-8752-68b7627d4884" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="0d8c46be-72f6-4a9f-9152-6414466ff86a" absoluteBounds="6.375, 3.25, 2, 2.7324039713541666">
+    <classShape Id="37b736af-b7c4-4291-93b2-92f945fc50e6" absoluteBounds="6.25, 4.375, 2, 2.7324039713541666">
       <DataClassMoniker Name="/IssueTrackerDataContext/Issue" />
       <nestedChildShapes>
-        <elementListCompartment Id="a6bdc32c-12e8-4f3f-bb75-b1af4f46dea3" absoluteBounds="6.39, 3.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="24b88a43-1155-487e-84de-bf924fa2dec9" absoluteBounds="6.265, 4.835, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.375 : 4.59699625651042); (9 : 4.59699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/IssueTrackerDataContext/Issue/Issue_IssueLabel" />
-      <nodes>
-        <classShapeMoniker Id="0d8c46be-72f6-4a9f-9152-6414466ff86a" />
-        <classShapeMoniker Id="c40fe5f0-7ab5-48e9-b9c8-6b1bdc39f395" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 4.54540367171224); (5.97916666666667 : 4.54540367171224 : JumpStart); (6.14583333333333 : 4.54540367171224 : JumpEnd); (6.375 : 4.54540367171224)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/IssueTrackerDataContext/Milestone/Milestone_Issue" />
-      <nodes>
-        <classShapeMoniker Id="62e26cb6-3862-4196-8752-68b7627d4884" />
-        <classShapeMoniker Id="0d8c46be-72f6-4a9f-9152-6414466ff86a" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 5.2612939453125); (1.75 : 5.720400390625); (6.375 : 5.720400390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/IssueTrackerDataContext/Project/Project_Issue" />
-      <nodes>
-        <classShapeMoniker Id="d99ba773-535d-4ea5-8ea4-8ebe6c5c9e92" />
-        <classShapeMoniker Id="0d8c46be-72f6-4a9f-9152-6414466ff86a" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 2.30066538246194); (6.0625 : 2.86316538246194); (6.0625 : 5.13290203116862); (6.375 : 5.13290203116862)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <classShape Id="664932a4-cb35-4dc7-9425-9bf5d070b487" absoluteBounds="0.75, 1, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/IssueTrackerDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2808b20f-f479-4aff-bcdf-d487493ad06a" absoluteBounds="0.765, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4baa5470-3084-4912-a459-77c07bb4174c" absoluteBounds="9, 5.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/IssueTrackerDataContext/IssueLabel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c90f5a70-821c-4886-a836-8659577d5601" absoluteBounds="9.015, 5.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="12525b8d-c186-471d-a6f1-476cf1f17e18" absoluteBounds="6.25, 2, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/IssueTrackerDataContext/Label" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f8922b6a-02c9-4778-913c-e356ba9f9cbf" absoluteBounds="6.265, 2.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e208847b-b557-4e49-8692-935ecaa03d00" absoluteBounds="3.5, 5.875, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/IssueTrackerDataContext/Milestone" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0f567b82-791c-4eee-91b4-52a98ceaea5d" absoluteBounds="3.515, 6.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5d038f8d-7ca2-462f-8f8c-83ec770cd2e6" absoluteBounds="0.75, 4, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/IssueTrackerDataContext/Project" />
+      <nestedChildShapes>
+        <elementListCompartment Id="debe90b9-c5c5-45e9-a3bd-902669222b6d" absoluteBounds="0.765, 4.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="45687b8a-8044-4847-924f-0d1c7eae8609" absoluteBounds="3.5, 3.125, 2, 1.193992513020834">
+      <DataClassMoniker Name="/IssueTrackerDataContext/ProjectUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c656b4ea-8580-4f1c-b9f7-d94a68024750" absoluteBounds="3.515, 3.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 1.78929768880208); (4.41666666666667 : 1.78929768880208 : JumpStart); (4.58333333333333 : 1.78929768880208 : JumpEnd); (6 : 1.78929768880208); (6 : 3.82859537760417); (7.25 : 3.82859537760417); (7.25 : 4.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IssueTrackerDataContext/User/User_Issue" />
       <nodes>
-        <classShapeMoniker Id="5a73370e-eb83-47e6-afe6-b7d9f3b7d830" />
-        <classShapeMoniker Id="0d8c46be-72f6-4a9f-9152-6414466ff86a" />
+        <classShapeMoniker Id="664932a4-cb35-4dc7-9425-9bf5d070b487" />
+        <classShapeMoniker Id="37b736af-b7c4-4291-93b2-92f945fc50e6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.47449961313101 : 2.32859537760417); (5.875 : 2.72909576447316); (5.875 : 3.86644983585612); (5.97916666666667 : 3.86644983585612 : JumpStart); (6.14583333333333 : 3.86644983585612 : JumpEnd); (6.375 : 3.86644983585612)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.21519853320312); (4.41666666666667 : 2.21519853320312 : JumpStart); (4.58333333333333 : 2.21519853320312 : JumpEnd); (5.75 : 2.21519853320312); (5.75 : 4.07859537760417); (6.718748 : 4.07859537760417); (6.718748 : 4.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IssueTrackerDataContext/User/User_Issue1" />
       <nodes>
-        <classShapeMoniker Id="5a73370e-eb83-47e6-afe6-b7d9f3b7d830" />
-        <classShapeMoniker Id="0d8c46be-72f6-4a9f-9152-6414466ff86a" />
+        <classShapeMoniker Id="664932a4-cb35-4dc7-9425-9bf5d070b487" />
+        <classShapeMoniker Id="37b736af-b7c4-4291-93b2-92f945fc50e6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 5.84699625651042); (9 : 5.84699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IssueTrackerDataContext/Issue/Issue_IssueLabel" />
+      <nodes>
+        <classShapeMoniker Id="37b736af-b7c4-4291-93b2-92f945fc50e6" />
+        <classShapeMoniker Id="4baa5470-3084-4912-a459-77c07bb4174c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 2.78929768880208); (10 : 2.78929768880208); (10 : 5.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IssueTrackerDataContext/Label/Label_IssueLabel" />
+      <nodes>
+        <classShapeMoniker Id="12525b8d-c186-471d-a6f1-476cf1f17e18" />
+        <classShapeMoniker Id="4baa5470-3084-4912-a459-77c07bb4174c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 6.49120198567708); (6.25 : 6.49120198567708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IssueTrackerDataContext/Milestone/Milestone_Issue" />
+      <nodes>
+        <classShapeMoniker Id="e208847b-b557-4e49-8692-935ecaa03d00" />
+        <classShapeMoniker Id="37b736af-b7c4-4291-93b2-92f945fc50e6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.97679768880208); (6.25 : 4.97679768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IssueTrackerDataContext/Project/Project_Issue" />
+      <nodes>
+        <classShapeMoniker Id="5d038f8d-7ca2-462f-8f8c-83ec770cd2e6" />
+        <classShapeMoniker Id="37b736af-b7c4-4291-93b2-92f945fc50e6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 5.57859537760417); (1.75 : 6.76044840494792); (3.5 : 6.76044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IssueTrackerDataContext/Project/Project_Milestone" />
+      <nodes>
+        <classShapeMoniker Id="5d038f8d-7ca2-462f-8f8c-83ec770cd2e6" />
+        <classShapeMoniker Id="e208847b-b557-4e49-8692-935ecaa03d00" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.15949625651042); (3.5 : 4.15949625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IssueTrackerDataContext/Project/Project_ProjectUser" />
+      <nodes>
+        <classShapeMoniker Id="5d038f8d-7ca2-462f-8f8c-83ec770cd2e6" />
+        <classShapeMoniker Id="45687b8a-8044-4847-924f-0d1c7eae8609" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 1.36339634440104); (4.5 : 1.36339634440104); (4.5 : 3.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/IssueTrackerDataContext/User/User_ProjectUser" />
+      <nodes>
+        <classShapeMoniker Id="664932a4-cb35-4dc7-9425-9bf5d070b487" />
+        <classShapeMoniker Id="45687b8a-8044-4847-924f-0d1c7eae8609" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

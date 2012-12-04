@@ -6,36 +6,30 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using IssueTracker.App.ViewControllers;
 using TccLib.WinForms;
 using TccLib.WinForms.Extensions;
-using TccLib.Cocoa;
 using IssueTracker.Data;
 
 namespace IssueTracker.App
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form, INavigationController
     {
         public MainForm()
         {
             InitializeComponent();
             this.mListBoxProjects.ToggleDoubleBuffering(true);
+            this.ControlHosts = new Stack<INavigableControlHost>();
         }
 
-        /// <summary>
-        /// Gets the main NavigationViewController which will manage the body
-        /// of the form.
-        /// </summary>
-        private NavigationViewController NavigationViewController { get; set; }
+        private Stack<INavigableControlHost> ControlHosts { get; set; }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            var lRootViewController = new SelectProjectViewController();
-            this.NavigationViewController = new NavigationViewController(lRootViewController);
-            this.NavigationViewController.View.Dock = DockStyle.Fill;
-            this.mSplitContainer.Panel2.Controls.Add(this.NavigationViewController.View);
+            this.RootControlHost = new SelectProjectView();
+            this.ControlHosts.Push(this.RootControlHost);
+            this.ShowControlHost(this.RootControlHost);
 
             using (var lDataContext = new IssueTrackerDataContext())
             {
@@ -57,9 +51,9 @@ namespace IssueTracker.App
 
             if (lProject == null)
             {
-                var lNewProjectViewController = new NewProjectViewController();
-                lNewProjectViewController.ProjectCreated += (s, args) => this.OnProjectCreated(args.Value);
-                this.NavigationViewController.PushViewController(lNewProjectViewController);
+                var lNewProjectView = new NewProjectView();
+                lNewProjectView.ProjectCreated += (s, args) => this.OnProjectCreated(args.Value);
+                this.PushControlHost(lNewProjectView);
             }
             else
             {
@@ -73,10 +67,9 @@ namespace IssueTracker.App
         /// <param name="project">The project to open.</param>
         private void OpenProject(Project project)
         {
-            var lProjectHomeViewController = new ProjectHomeViewController(project);
-
-            this.NavigationViewController.PopToRootViewController();
-            this.NavigationViewController.PushViewController(lProjectHomeViewController);
+            var lProjectHomeView = new ProjectHomeView(project);
+            this.PopToRootControlHost();
+            this.PushControlHost(lProjectHomeView);
         }
 
         /// <summary>
@@ -99,6 +92,99 @@ namespace IssueTracker.App
         {
             System.Diagnostics.Debug.Assert(project != null, "This function only wraps valid project objects.");
             return new GenericWrapper<Project>(project, x => x.Name);
+        }
+
+        public INavigableControlHost RootControlHost
+        {
+            get; 
+            private set;
+        }
+
+        private INavigableControlHost TopControlHost
+        {
+            get { return this.ControlHosts.Peek(); }
+        }
+
+        public void PushControlHost(INavigableControlHost controlHost)
+        {
+            if (controlHost == null) throw new ArgumentNullException("controlHost");
+
+            controlHost.NavigationController = this;
+
+            this.HideControlHost(this.TopControlHost);
+            this.ControlHosts.Push(controlHost);
+            this.ShowControlHost(this.TopControlHost);
+        }
+
+        public void PopControlHost()
+        {
+            if (this.ControlHosts.Count == 1)
+            {
+                throw new InvalidOperationException(
+                    "Cannot remove the RootControlHost.");
+            }
+
+            this.HideControlHost(this.TopControlHost);
+            this.ControlHosts.Pop();
+            this.ShowControlHost(this.TopControlHost);
+        }
+
+        public void PopToRootControlHost()
+        {
+            if (this.ControlHosts.Count == 1) return;
+
+            this.HideControlHost(this.TopControlHost);
+            while (this.ControlHosts.Count > 1) this.ControlHosts.Pop();
+            this.ShowControlHost(this.TopControlHost);
+        }
+
+        public void PopToControlHost(INavigableControlHost controlHost)
+        {
+            if (controlHost == null) throw new ArgumentNullException("controlHost");
+            if (this.TopControlHost == controlHost) return;
+
+            this.HideControlHost(this.TopControlHost);
+
+            while ((this.ControlHosts.Count > 1) && (this.TopControlHost != controlHost))
+            {
+                this.ControlHosts.Pop();
+            }
+
+            if (this.TopControlHost != controlHost)
+            {
+                throw new ArgumentException(
+                    "The given control host was not found in the navigation stack.");
+            }
+
+            this.ShowControlHost(this.TopControlHost);
+        }
+
+        private void HideControlHost(INavigableControlHost controlHost)
+        {
+            System.Diagnostics.Debug.Assert(controlHost != null);
+            System.Diagnostics.Debug.Assert(controlHost.Control.Parent == this);
+
+            controlHost.Control.Parent = null;
+        }
+
+        private void ShowControlHost(INavigableControlHost controlHost)
+        {
+            System.Diagnostics.Debug.Assert(controlHost != null);
+
+            var lRight = this.mListBoxProjects.Right;
+            var lWidth = this.mListBoxProjects.Width;
+
+            var lControl = controlHost.Control;
+            lControl.SuspendLayout();
+            lControl.Parent = null;
+            lControl.Dock = DockStyle.None;
+            lControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lControl.Width = this.ClientSize.Width - this.mListBoxProjects.Right - this.Padding.Right - this.mListBoxProjects.Margin.Right;
+            lControl.Height = this.mListBoxProjects.Height;
+            lControl.Top = this.mListBoxProjects.Top;
+            lControl.Left = this.mListBoxProjects.Right + this.mListBoxProjects.Margin.Right;
+            lControl.Parent = this;
+            lControl.ResumeLayout();
         }
     }
 }

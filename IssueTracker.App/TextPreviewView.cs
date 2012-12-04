@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using TccLib.Extensions;
 
-namespace IssueTracker.App.Views
+namespace IssueTracker.App
 {
     /// <summary>
     /// Allows the user to enter in text while also showing a post-procsesed
@@ -23,12 +23,6 @@ namespace IssueTracker.App.Views
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Fired when the text entered by the user needs to be processed
-        /// for display in the preview browser.
-        /// </summary>
-        public event EventHandler<TextPreviewProcessTextEventArgs> ProcessText;
 
         /// <summary>
         /// Gets or sets the user-input text.
@@ -47,9 +41,13 @@ namespace IssueTracker.App.Views
         {
             if (e.TabPage == this.mTabPagePreview)
             {
-                var lEventArgs = new TextPreviewProcessTextEventArgs(this.mTextBoxUserInput.Text);
-                this.ProcessText.Fire(this, lEventArgs);
-                this.mHtmlPanel.Text = lEventArgs.ProcessedText;
+                var lMarkdown = new MarkdownSharp.Markdown();
+
+                var lStyleSheet = Properties.Resources.PreviewStyleSheet;
+                var lHeader = Properties.Settings.Default.MarkdownStyleHeader + lStyleSheet + Properties.Settings.Default.MarkdownBodyHeader;
+                var lBody = lMarkdown.Transform(this.mTextBoxUserInput.Text);
+                var lFooter = Properties.Settings.Default.MarkdownBodyFooter;
+                this.mHtmlPanel.Text = lHeader + lBody + lFooter;
             }
         }
     }

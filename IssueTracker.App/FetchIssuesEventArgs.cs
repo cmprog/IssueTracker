@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IssueTracker.App.Models;
+using IssueTracker.Data;
 
-namespace IssueTracker.App.Views
+namespace IssueTracker.App
 {
     /// <summary>
     /// Defines the set of filters which can be used for custom fetch requests.
@@ -39,7 +39,7 @@ namespace IssueTracker.App.Views
             this.SearchText = searchText;
             this.Filter = filter;
             this.Status = status;
-            this.Results = Enumerable.Empty<IssueModel>();
+            this.Results = Enumerable.Empty<Issue>();
         }
 
         /// <summary>
@@ -60,6 +60,6 @@ namespace IssueTracker.App.Views
         /// <summary>
         /// Gets or sets the results of the fetch request.
         /// </summary>
-        public IEnumerable<IssueModel> Results { get; set; }
+        public IEnumerable<Issue> Results { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace IssueTracker.App.Views
+﻿namespace IssueTracker.App
 {
     partial class SelectProjectView
     {

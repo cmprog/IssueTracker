@@ -1,4 +1,4 @@
-﻿namespace IssueTracker.App.Views
+﻿namespace IssueTracker.App
 {
     partial class ProjectHomeView
     {
@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mTabControlMain = new System.Windows.Forms.TabControl();
             this.mTabPageIssues = new System.Windows.Forms.TabPage();
             this.mTabControlIssues = new System.Windows.Forms.TabControl();
             this.mTabPageOpenIssues = new System.Windows.Forms.TabPage();
+            this.mListBoxOpenIssues = new System.Windows.Forms.ListBox();
             this.mTabPageClosedIssues = new System.Windows.Forms.TabPage();
             this.mButtonIssuesCreated = new System.Windows.Forms.Button();
             this.mButtonIssuesAssigned = new System.Windows.Forms.Button();
@@ -40,11 +42,13 @@
             this.mButtonAdd = new System.Windows.Forms.Button();
             this.mLabelSearch = new System.Windows.Forms.Label();
             this.mTextBoxSearch = new System.Windows.Forms.TextBox();
-            this.mListBoxOpenIssues = new System.Windows.Forms.ListBox();
+            this.mListBoxClosedIssues = new System.Windows.Forms.ListBox();
+            this.mTimerSearch = new System.Windows.Forms.Timer(this.components);
             this.mTabControlMain.SuspendLayout();
             this.mTabPageIssues.SuspendLayout();
             this.mTabControlIssues.SuspendLayout();
             this.mTabPageOpenIssues.SuspendLayout();
+            this.mTabPageClosedIssues.SuspendLayout();
             this.SuspendLayout();
             // 
             // mTabControlMain
@@ -77,9 +81,9 @@
             // 
             // mTabControlIssues
             // 
-            this.mTabControlIssues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mTabControlIssues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mTabControlIssues.Controls.Add(this.mTabPageOpenIssues);
             this.mTabControlIssues.Controls.Add(this.mTabPageClosedIssues);
             this.mTabControlIssues.Location = new System.Drawing.Point(183, 7);
@@ -87,6 +91,7 @@
             this.mTabControlIssues.SelectedIndex = 0;
             this.mTabControlIssues.Size = new System.Drawing.Size(352, 168);
             this.mTabControlIssues.TabIndex = 3;
+            this.mTabControlIssues.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControlIssues_Selected);
             // 
             // mTabPageOpenIssues
             // 
@@ -99,8 +104,21 @@
             this.mTabPageOpenIssues.Text = "# open issue";
             this.mTabPageOpenIssues.UseVisualStyleBackColor = true;
             // 
+            // mListBoxOpenIssues
+            // 
+            this.mListBoxOpenIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mListBoxOpenIssues.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.mListBoxOpenIssues.FormattingEnabled = true;
+            this.mListBoxOpenIssues.IntegralHeight = false;
+            this.mListBoxOpenIssues.Location = new System.Drawing.Point(3, 3);
+            this.mListBoxOpenIssues.Name = "mListBoxOpenIssues";
+            this.mListBoxOpenIssues.Size = new System.Drawing.Size(338, 133);
+            this.mListBoxOpenIssues.TabIndex = 0;
+            this.mListBoxOpenIssues.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxIssues_DrawItem);
+            // 
             // mTabPageClosedIssues
             // 
+            this.mTabPageClosedIssues.Controls.Add(this.mListBoxClosedIssues);
             this.mTabPageClosedIssues.Location = new System.Drawing.Point(4, 25);
             this.mTabPageClosedIssues.Name = "mTabPageClosedIssues";
             this.mTabPageClosedIssues.Padding = new System.Windows.Forms.Padding(3);
@@ -117,6 +135,7 @@
             this.mButtonIssuesCreated.TabIndex = 2;
             this.mButtonIssuesCreated.Text = "Created by you";
             this.mButtonIssuesCreated.UseVisualStyleBackColor = true;
+            this.mButtonIssuesCreated.Click += new System.EventHandler(this.ButtonIssuesCreated_Click);
             // 
             // mButtonIssuesAssigned
             // 
@@ -126,6 +145,7 @@
             this.mButtonIssuesAssigned.TabIndex = 1;
             this.mButtonIssuesAssigned.Text = "Assigned to you";
             this.mButtonIssuesAssigned.UseVisualStyleBackColor = true;
+            this.mButtonIssuesAssigned.Click += new System.EventHandler(this.ButtonIssuesAssigned_Click);
             // 
             // mButtonIssuesEveryone
             // 
@@ -135,6 +155,7 @@
             this.mButtonIssuesEveryone.TabIndex = 0;
             this.mButtonIssuesEveryone.Text = "Everyone\'s Issues";
             this.mButtonIssuesEveryone.UseVisualStyleBackColor = true;
+            this.mButtonIssuesEveryone.Click += new System.EventHandler(this.ButtonIssuesEventone_Click);
             // 
             // mTabPageMilestones
             // 
@@ -154,7 +175,7 @@
             this.mButtonAdd.Name = "mButtonAdd";
             this.mButtonAdd.Size = new System.Drawing.Size(109, 23);
             this.mButtonAdd.TabIndex = 4;
-            this.mButtonAdd.Text = "New Milestone";
+            this.mButtonAdd.Text = "New Issue";
             this.mButtonAdd.UseVisualStyleBackColor = true;
             // 
             // mLabelSearch
@@ -174,17 +195,24 @@
             this.mTextBoxSearch.Name = "mTextBoxSearch";
             this.mTextBoxSearch.Size = new System.Drawing.Size(155, 22);
             this.mTextBoxSearch.TabIndex = 6;
+            this.mTextBoxSearch.TextChanged += new System.EventHandler(this.TextBoxSearch_TextChanged);
             // 
-            // mListBoxOpenIssues
+            // mListBoxClosedIssues
             // 
-            this.mListBoxOpenIssues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mListBoxOpenIssues.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.mListBoxOpenIssues.FormattingEnabled = true;
-            this.mListBoxOpenIssues.Location = new System.Drawing.Point(3, 3);
-            this.mListBoxOpenIssues.Name = "mListBoxOpenIssues";
-            this.mListBoxOpenIssues.Size = new System.Drawing.Size(338, 133);
-            this.mListBoxOpenIssues.TabIndex = 0;
-            this.mListBoxOpenIssues.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxIssues_DrawItem);
+            this.mListBoxClosedIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mListBoxClosedIssues.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.mListBoxClosedIssues.FormattingEnabled = true;
+            this.mListBoxClosedIssues.IntegralHeight = false;
+            this.mListBoxClosedIssues.Location = new System.Drawing.Point(3, 3);
+            this.mListBoxClosedIssues.Name = "mListBoxClosedIssues";
+            this.mListBoxClosedIssues.Size = new System.Drawing.Size(338, 133);
+            this.mListBoxClosedIssues.TabIndex = 1;
+            this.mListBoxClosedIssues.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxIssues_DrawItem);
+            // 
+            // mTimerSearch
+            // 
+            this.mTimerSearch.Interval = 500;
+            this.mTimerSearch.Tick += new System.EventHandler(this.TimerSearch_Tick);
             // 
             // ProjectHomeView
             // 
@@ -203,6 +231,7 @@
             this.mTabPageIssues.ResumeLayout(false);
             this.mTabControlIssues.ResumeLayout(false);
             this.mTabPageOpenIssues.ResumeLayout(false);
+            this.mTabPageClosedIssues.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,5 +252,7 @@
         private System.Windows.Forms.Label mLabelSearch;
         private System.Windows.Forms.TextBox mTextBoxSearch;
         private System.Windows.Forms.ListBox mListBoxOpenIssues;
+        private System.Windows.Forms.ListBox mListBoxClosedIssues;
+        private System.Windows.Forms.Timer mTimerSearch;
     }
 }

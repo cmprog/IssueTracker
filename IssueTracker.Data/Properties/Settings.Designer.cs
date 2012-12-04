@@ -32,5 +32,15 @@ namespace IssueTracker.Data.Properties {
                 return ((string)(this["IssueTrackerConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;Initial Catalog=IssueTracker;Integrated Security=True")]
+        public string IssueTrackerConnectionString1 {
+            get {
+                return ((string)(this["IssueTrackerConnectionString1"]));
+            }
+        }
     }
 }

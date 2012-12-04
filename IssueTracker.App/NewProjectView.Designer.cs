@@ -1,4 +1,4 @@
-﻿namespace IssueTracker.App.Views
+﻿namespace IssueTracker.App
 {
     partial class NewProjectView
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mTextPreviewViewBody = new IssueTracker.App.Views.TextPreviewView();
+            this.mTextPreviewViewBody = new IssueTracker.App.TextPreviewView();
             this.mTextBoxTitle = new System.Windows.Forms.TextBox();
             this.mButtonCreate = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -43,7 +43,6 @@
             this.mTextPreviewViewBody.Name = "mTextPreviewViewBody";
             this.mTextPreviewViewBody.Size = new System.Drawing.Size(319, 150);
             this.mTextPreviewViewBody.TabIndex = 0;
-            this.mTextPreviewViewBody.ProcessText += new System.EventHandler<IssueTracker.App.Views.TextPreviewProcessTextEventArgs>(this.TextPreviewViewBody_ProcessText);
             // 
             // mTextBoxTitle
             // 
