@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TccLib.Drawing.Extensions;
 using TccLib.WinForms;
 using TccLib.WinForms.Extensions;
 using IssueTracker.Data;
@@ -34,10 +35,9 @@ namespace IssueTracker.App
             using (var lDataContext = new IssueTrackerDataContext())
             {
                 var lProjects = lDataContext.Projects.ToArray();
-                var lWrappers = lProjects.Select(x => GenericWrapper.Create(x, proj => proj.Name)).ToArray();
 
-                this.mListBoxProjects.Items.AddRange(lWrappers);
-                this.mListBoxProjects.Items.Add(GenericWrapper.Create<Project>(null, x => "Create New Project"));
+                this.mListBoxProjects.Items.AddRange(lProjects);
+                this.mListBoxProjects.Items.Add("Create New Project...");
             }
         }
 
@@ -47,7 +47,7 @@ namespace IssueTracker.App
             if (lIndex < 0) return;
 
             var lRawProject = this.mListBoxProjects.Items[lIndex];
-            var lProject = GenericWrapper<Project>.UnWrap(lRawProject);
+            var lProject = lRawProject as Project;
 
             if (lProject == null)
             {
@@ -174,17 +174,48 @@ namespace IssueTracker.App
             var lRight = this.mListBoxProjects.Right;
             var lWidth = this.mListBoxProjects.Width;
 
+            var lTopOffset = (controlHost == this.RootControlHost)
+                ? 0 : this.mLinkLabelBack.Height + this.mLinkLabelBack.Margin.Bottom;
+
             var lControl = controlHost.Control;
             lControl.SuspendLayout();
-            lControl.Parent = null;
+            lControl.Parent = this;
             lControl.Dock = DockStyle.None;
+            lControl.Top = this.mLinkLabelBack.Top + lTopOffset;
+            lControl.Left = this.mLinkLabelBack.Left;
             lControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lControl.Width = this.ClientSize.Width - this.mListBoxProjects.Right - this.Padding.Right - this.mListBoxProjects.Margin.Right;
-            lControl.Height = this.mListBoxProjects.Height;
-            lControl.Top = this.mListBoxProjects.Top;
-            lControl.Left = this.mListBoxProjects.Right + this.mListBoxProjects.Margin.Right;
-            lControl.Parent = this;
+            lControl.Height = this.mListBoxProjects.Height - lTopOffset;
+            lControl.BringToFront();
             lControl.ResumeLayout();
+        }
+
+        private void LinkLabelBack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.PopControlHost();
+        }
+
+        private void ListBoxProjects_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            System.Diagnostics.Debug.Assert(e.Index >= 0);
+
+            var lIsSelected = ((e.State & DrawItemState.Selected) == DrawItemState.Selected);
+            var lBackBrush = lIsSelected ? SystemBrushes.Highlight : SystemBrushes.Window;
+
+            e.Graphics.FillRoundedRectangle(lBackBrush, e.Bounds, 10);
+
+            var lTextBrush = lIsSelected ? SystemBrushes.HighlightText : SystemBrushes.ControlText;
+
+            if (e.Index == this.mListBoxProjects.Items.Count - 1)
+            {
+                var lText = (string)this.mListBoxProjects.Items[e.Index];
+                e.Graphics.DrawString(lText, e.Font, lTextBrush, e.Bounds);
+            }
+            else
+            {
+                var lProject = (Project)this.mListBoxProjects.Items[e.Index];
+                e.Graphics.DrawString(lProject.Name, e.Font, lTextBrush, e.Bounds);
+            }
         }
     }
 }

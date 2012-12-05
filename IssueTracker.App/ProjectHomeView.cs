@@ -158,5 +158,38 @@ namespace IssueTracker.App
                 this.RefreshMilestones();
             }
         }
+
+        private void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            if (this.mTabControlMain.SelectedTab == this.mTabPageIssues)
+            {
+                var lNewIssueControlHost = new NewIssueControlHost(this.Project);
+                lNewIssueControlHost.IssueCreated += (s, args) => this.OpenIssue(args.Value);
+                this.NavigationController.PushControlHost(lNewIssueControlHost);
+            }
+            else
+            {
+                System.Diagnostics.Debug.Assert(this.mTabControlMain.SelectedTab == this.mTabPageMilestones);
+            }
+        }
+
+        private void OpenIssue(Issue issue)
+        {
+            this.NavigationController.PopToControlHost(this);
+            this.RefreshIssues();
+
+            var lIssueDetailsControlHost = new IssueDetailsControlHost(issue);
+            this.NavigationController.PushControlHost(lIssueDetailsControlHost);
+        }
+
+        private void ListBoxIssues_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var lSenderListBox = (ListBox)sender;
+            var lIndex = lSenderListBox.IndexFromPoint(e.Location);
+            if (lIndex < 0) return;
+
+            var lIssue = (Issue)lSenderListBox.Items[lIndex];
+            this.OpenIssue(lIssue);
+        }
     }
 }

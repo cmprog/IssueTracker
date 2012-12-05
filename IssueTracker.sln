@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccLib.WinForms", "TccLib.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Drawing.Html", "System.Drawing.Html\System.Drawing.Html.csproj", "{1B058920-24B4-4140-8AE7-C8C6C38CA52D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TccLib.Drawing", "TccLib.Drawing\TccLib.Drawing.csproj", "{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,16 @@ Global
 		{1B058920-24B4-4140-8AE7-C8C6C38CA52D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1B058920-24B4-4140-8AE7-C8C6C38CA52D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1B058920-24B4-4140-8AE7-C8C6C38CA52D}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

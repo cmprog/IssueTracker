@@ -35,6 +35,7 @@
             this.mTabPageOpenIssues = new System.Windows.Forms.TabPage();
             this.mListBoxOpenIssues = new System.Windows.Forms.ListBox();
             this.mTabPageClosedIssues = new System.Windows.Forms.TabPage();
+            this.mListBoxClosedIssues = new System.Windows.Forms.ListBox();
             this.mButtonIssuesCreated = new System.Windows.Forms.Button();
             this.mButtonIssuesAssigned = new System.Windows.Forms.Button();
             this.mButtonIssuesEveryone = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@
             this.mButtonAdd = new System.Windows.Forms.Button();
             this.mLabelSearch = new System.Windows.Forms.Label();
             this.mTextBoxSearch = new System.Windows.Forms.TextBox();
-            this.mListBoxClosedIssues = new System.Windows.Forms.ListBox();
             this.mTimerSearch = new System.Windows.Forms.Timer(this.components);
             this.mTabControlMain.SuspendLayout();
             this.mTabPageIssues.SuspendLayout();
@@ -115,6 +115,7 @@
             this.mListBoxOpenIssues.Size = new System.Drawing.Size(338, 133);
             this.mListBoxOpenIssues.TabIndex = 0;
             this.mListBoxOpenIssues.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxIssues_DrawItem);
+            this.mListBoxOpenIssues.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxIssues_MouseDoubleClick);
             // 
             // mTabPageClosedIssues
             // 
@@ -126,6 +127,19 @@
             this.mTabPageClosedIssues.TabIndex = 1;
             this.mTabPageClosedIssues.Text = "# closed issues";
             this.mTabPageClosedIssues.UseVisualStyleBackColor = true;
+            // 
+            // mListBoxClosedIssues
+            // 
+            this.mListBoxClosedIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mListBoxClosedIssues.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.mListBoxClosedIssues.FormattingEnabled = true;
+            this.mListBoxClosedIssues.IntegralHeight = false;
+            this.mListBoxClosedIssues.Location = new System.Drawing.Point(3, 3);
+            this.mListBoxClosedIssues.Name = "mListBoxClosedIssues";
+            this.mListBoxClosedIssues.Size = new System.Drawing.Size(338, 133);
+            this.mListBoxClosedIssues.TabIndex = 1;
+            this.mListBoxClosedIssues.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxIssues_DrawItem);
+            this.mListBoxClosedIssues.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxIssues_MouseDoubleClick);
             // 
             // mButtonIssuesCreated
             // 
@@ -177,6 +191,7 @@
             this.mButtonAdd.TabIndex = 4;
             this.mButtonAdd.Text = "New Issue";
             this.mButtonAdd.UseVisualStyleBackColor = true;
+            this.mButtonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // mLabelSearch
             // 
@@ -196,18 +211,6 @@
             this.mTextBoxSearch.Size = new System.Drawing.Size(155, 22);
             this.mTextBoxSearch.TabIndex = 6;
             this.mTextBoxSearch.TextChanged += new System.EventHandler(this.TextBoxSearch_TextChanged);
-            // 
-            // mListBoxClosedIssues
-            // 
-            this.mListBoxClosedIssues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mListBoxClosedIssues.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.mListBoxClosedIssues.FormattingEnabled = true;
-            this.mListBoxClosedIssues.IntegralHeight = false;
-            this.mListBoxClosedIssues.Location = new System.Drawing.Point(3, 3);
-            this.mListBoxClosedIssues.Name = "mListBoxClosedIssues";
-            this.mListBoxClosedIssues.Size = new System.Drawing.Size(338, 133);
-            this.mListBoxClosedIssues.TabIndex = 1;
-            this.mListBoxClosedIssues.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxIssues_DrawItem);
             // 
             // mTimerSearch
             // 

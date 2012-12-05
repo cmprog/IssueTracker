@@ -49,11 +49,24 @@
   <ItemGroup>
     <Compile Include="INavigableControlHost.cs" />
     <Compile Include="INavigationController.cs" />
+    <Compile Include="IssueDetailsControlHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IssueDetailsControlHost.Designer.cs">
+      <DependentUpon>IssueDetailsControlHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarkdownHelper.cs" />
+    <Compile Include="NewIssueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NewIssueControl.Designer.cs">
+      <DependentUpon>NewIssueControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,8 +97,14 @@
     <Compile Include="TextPreviewView.Designer.cs">
       <DependentUpon>TextPreviewView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="IssueDetailsControlHost.resx">
+      <DependentUpon>IssueDetailsControlHost.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewIssueControl.resx">
+      <DependentUpon>NewIssueControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -132,6 +151,10 @@
     <ProjectReference Include="..\System.Drawing.Html\System.Drawing.Html.csproj">
       <Project>{1B058920-24B4-4140-8AE7-C8C6C38CA52D}</Project>
       <Name>System.Drawing.Html</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TccLib.Drawing\TccLib.Drawing.csproj">
+      <Project>{BF9FB71A-AAED-46E9-84A3-D193BCF1D6E5}</Project>
+      <Name>TccLib.Drawing</Name>
     </ProjectReference>
     <ProjectReference Include="..\TccLib.WinForms\TccLib.WinForms.csproj">
       <Project>{A8DBACAD-65EF-4243-96C5-414B661611A7}</Project>

@@ -41,13 +41,7 @@ namespace IssueTracker.App
         {
             if (e.TabPage == this.mTabPagePreview)
             {
-                var lMarkdown = new MarkdownSharp.Markdown();
-
-                var lStyleSheet = Properties.Resources.PreviewStyleSheet;
-                var lHeader = Properties.Settings.Default.MarkdownStyleHeader + lStyleSheet + Properties.Settings.Default.MarkdownBodyHeader;
-                var lBody = lMarkdown.Transform(this.mTextBoxUserInput.Text);
-                var lFooter = Properties.Settings.Default.MarkdownBodyFooter;
-                this.mHtmlPanel.Text = lHeader + lBody + lFooter;
+                this.mHtmlPanel.Text = MarkdownHelper.TranslateWithStyle(this.mTextBoxUserInput.Text);
             }
         }
     }
